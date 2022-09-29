@@ -1,10 +1,29 @@
 import './SidebarOption.css';
 
-import React, { Component } from 'react'
+import { useNavigate } from 'react-router-dom';
 
-const SidebarOption = ({ Icon, title }: any) => {
+const SidebarOption = ({ Icon, title, id, addChannelOption }: any) => {
+    const navigate = useNavigate();
+
+    const selectChannel = () => {
+        if (id) {
+            navigate(`/room/${id}`);
+        } else {
+            navigate(title);
+        }
+    };
+
+    const addChannel = () => {
+        const channelName = prompt('Please enter the channel name');
+        if (channelName) {
+            // db.collection('rooms').add({
+            //     name: channelName,
+            // });
+        }
+    };
+
     return (
-        <div className='sidebarOption'>
+        <div className='sidebarOption' onClick={addChannelOption ? addChannel : selectChannel }>
             {Icon && <Icon className="sidebarOption__icon" />}
             {Icon ? (
                 <h3>{title}</h3>
